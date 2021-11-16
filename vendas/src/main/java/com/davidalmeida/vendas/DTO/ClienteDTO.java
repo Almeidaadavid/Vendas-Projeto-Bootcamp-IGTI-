@@ -19,6 +19,10 @@ public class ClienteDTO {
         this.dn = dn;
     }
 
+    public ClienteDTO() { // Construtor vazio;
+
+    }
+
     public int getId() {
         return id;
     }

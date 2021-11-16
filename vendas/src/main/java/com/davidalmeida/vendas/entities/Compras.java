@@ -22,10 +22,15 @@ public class Compras {
 
     }
 
-    public Compras(int id, Double totalCompra, LocalDate dataCompra) {
+    public Compras(int id, Double totalCompra, LocalDate dataCompra,Cliente cliente) { //adicionar cliente como param.
         this.id = id;
         this.totalCompra = totalCompra;
         this.dataCompra = dataCompra;
+        this.cliente = cliente;
+    }
+
+    public Compras(int id) { // Novo construtor
+
     }
 
     public int getId() {
@@ -51,4 +56,13 @@ public class Compras {
     public void setDataCompra(LocalDate dataCompra) {
         this.dataCompra = dataCompra;
     }
+
+    public Cliente getCliente() { // Get do novo param;
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) { // Set do novo param.
+        this.cliente = cliente;
+    }
+
 }
