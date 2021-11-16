@@ -18,5 +18,15 @@ public class ClienteService {
         List<Cliente> res=clienteRepository.findAll();
         return res.stream().map(c -> new ClienteDTO(c)).collect(Collectors.toList());
     }
+
+
+    public Cliente saveCliente(Cliente cliente) {
+        return clienteRepository.save(cliente);
+    }
+
+    public Cliente fromDTO(ClienteDTO clienteDTO) {
+        Cliente entidade = new Cliente(0,clienteDTO.getNome(),clienteDTO.getDn());
+        return entidade;
+    }
 }
 

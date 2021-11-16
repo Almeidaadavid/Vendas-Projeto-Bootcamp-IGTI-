@@ -2,13 +2,14 @@ package com.davidalmeida.vendas.controllers;
 
 import com.davidalmeida.vendas.DTO.ClienteDTO;
 import com.davidalmeida.vendas.DTO.ComprasDTO;
+import com.davidalmeida.vendas.entities.Cliente;
+import com.davidalmeida.vendas.entities.Compras;
 import com.davidalmeida.vendas.services.ClienteService;
 import com.davidalmeida.vendas.services.ComprasService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,5 +23,13 @@ public class ComprasController {
     public ResponseEntity<List<ComprasDTO>> findAll() {
         List<ComprasDTO> lista = comprasService.findAll();
         return ResponseEntity.ok(lista);
+    }
+
+    @PostMapping
+    @ResponseBody
+    public ResponseEntity<ComprasDTO> saveCliente(@RequestBody ComprasDTO comprasDTO) {
+        Compras entidade = comprasService.fromDTO(comprasDTO);
+        comprasService.saveCompras(entidade);
+        return new ResponseEntity<>(comprasDTO, HttpStatus.CREATED);
     }
 }

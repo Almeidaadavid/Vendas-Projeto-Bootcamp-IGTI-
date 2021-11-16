@@ -2,6 +2,7 @@ package com.davidalmeida.vendas.services;
 
 import com.davidalmeida.vendas.DTO.ClienteDTO;
 import com.davidalmeida.vendas.DTO.ComprasDTO;
+import com.davidalmeida.vendas.entities.Cliente;
 import com.davidalmeida.vendas.entities.Compras;
 import com.davidalmeida.vendas.repositories.ClienteRepository;
 import com.davidalmeida.vendas.repositories.ComprasRepository;
@@ -24,4 +25,13 @@ public class ComprasService {
        List<Compras> res= comprasRepository.findAll();
        return res.stream().map(c -> new ComprasDTO(c)).collect(Collectors.toList());
    }
+
+    public Compras saveCompras(Compras compras) {
+        return comprasRepository.save(compras);
+    }
+
+    public Compras fromDTO(ComprasDTO comprasDTO) {
+        Compras entidade = new Compras(0,comprasDTO.getTotalCompra(),comprasDTO.getDataCompra(),new Cliente(comprasDTO.getCliente().getId(),null,null));
+        return entidade;
+    }
 }
