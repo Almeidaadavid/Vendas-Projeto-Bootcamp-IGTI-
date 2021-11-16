@@ -30,4 +30,15 @@ public class ClienteController {
         clienteService.saveCliente(entidade);
         return new ResponseEntity<>(clienteDTO, HttpStatus.CREATED);
     }
+
+    @PutMapping(path = "/{id}")
+    @ResponseBody
+    public ResponseEntity<ClienteDTO> updateCliente(@PathVariable Integer id, @RequestBody ClienteDTO clienteDTO) {
+        Cliente entidade = clienteService.fromDTO(clienteDTO);
+        if (clienteService.updateCliente(id, entidade) != null) {
+            return new ResponseEntity<>(clienteDTO, HttpStatus.OK);
+        }
+        return ResponseEntity.notFound().build();
+
+    }
 }

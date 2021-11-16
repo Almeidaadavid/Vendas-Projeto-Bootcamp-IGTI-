@@ -24,6 +24,15 @@ public class ClienteService {
         return clienteRepository.save(cliente);
     }
 
+    public Cliente updateCliente(Integer id,Cliente newCliente) {
+        return clienteRepository.findById(id).map(c -> {
+            c.setNome(newCliente.getNome());
+            c.setDn(newCliente.getDn());
+            Cliente atualizado = clienteRepository.save(c);
+            return atualizado;
+        }).orElse(null);
+    }
+
     public Cliente fromDTO(ClienteDTO clienteDTO) {
         Cliente entidade = new Cliente(0,clienteDTO.getNome(),clienteDTO.getDn());
         return entidade;
