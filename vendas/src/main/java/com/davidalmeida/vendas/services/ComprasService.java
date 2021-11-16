@@ -7,6 +7,7 @@ import com.davidalmeida.vendas.entities.Compras;
 import com.davidalmeida.vendas.repositories.ClienteRepository;
 import com.davidalmeida.vendas.repositories.ComprasRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -37,6 +38,16 @@ public class ComprasService {
            Compras atualizado = comprasRepository.save(c);
            return atualizado;
       }).orElse(null);
+    }
+
+    public void deleteCompras(Integer id) {
+       try{
+           if(comprasRepository.findById(id) !=null) {
+               comprasRepository.deleteById(id);
+           }
+       } catch (DataIntegrityViolationException e) {
+           throw new Error("Você não pode deletar um CLIENTE");
+       }
     }
 
     public Compras fromDTO(ComprasDTO comprasDTO) {

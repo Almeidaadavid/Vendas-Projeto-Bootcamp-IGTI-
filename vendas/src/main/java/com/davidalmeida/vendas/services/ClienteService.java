@@ -4,6 +4,7 @@ import com.davidalmeida.vendas.DTO.ClienteDTO;
 import com.davidalmeida.vendas.entities.Cliente;
 import com.davidalmeida.vendas.repositories.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,6 +32,16 @@ public class ClienteService {
             Cliente atualizado = clienteRepository.save(c);
             return atualizado;
         }).orElse(null);
+    }
+
+    public void deleteCliente(Integer id) {
+        try{
+        if(clienteRepository.findById(id)!=null) {
+            clienteRepository.deleteById(id);
+        }
+        } catch (DataIntegrityViolationException e) {
+            throw new Error("Você não pode deletar um cliente que fez compras");
+        }
     }
 
     public Cliente fromDTO(ClienteDTO clienteDTO) {

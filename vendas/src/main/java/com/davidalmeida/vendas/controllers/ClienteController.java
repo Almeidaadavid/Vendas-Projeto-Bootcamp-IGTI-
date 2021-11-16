@@ -3,6 +3,7 @@ package com.davidalmeida.vendas.controllers;
 import com.davidalmeida.vendas.DTO.ClienteDTO;
 import com.davidalmeida.vendas.entities.Cliente;
 import com.davidalmeida.vendas.services.ClienteService;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,5 +41,11 @@ public class ClienteController {
         }
         return ResponseEntity.notFound().build();
 
+    }
+
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity<Void> deleteCliente(@PathVariable Integer id) {
+        clienteService.deleteCliente(id);
+        return ResponseEntity.noContent().build();
     }
 }

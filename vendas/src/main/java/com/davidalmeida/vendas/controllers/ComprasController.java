@@ -44,4 +44,11 @@ public class ComprasController {
         return ResponseEntity.notFound().build();
 
     }
+
+    @DeleteMapping(path="/{id}")
+
+    public ResponseEntity<Void> deleteCompras(@PathVariable Integer id) {
+        comprasService.deleteCompras(id);
+        return ResponseEntity.noContent().build();
+    }
 }
